@@ -152,13 +152,10 @@ def test_teacher_assignment_bug():
     enrollment_id = enrollment_response.json()['enrollment_id']
     print(f"✅ Student enrolled: {enrollment_id}")
     
-    # Step 5: Upload student documents (profile_photo was uploaded during registration)
+    # Step 5: Upload student documents (including profile_photo as a separate document)
     print("\n5️⃣ Uploading Student Documents...")
-    required_docs = ['id_card', 'medical_certificate', 'residence_certificate']
+    required_docs = ['profile_photo', 'id_card', 'medical_certificate', 'residence_certificate']
     doc_ids = []
-    
-    # Note: profile_photo is automatically uploaded during registration
-    # We need to check if it was accepted during registration
     
     for doc_type in required_docs:
         files = {
