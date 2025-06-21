@@ -182,9 +182,9 @@ def test_teacher_assignment_bug():
         else:
             print(f"  ❌ Failed to accept document {doc_id}: {accept_response.text}")
     
-    # Step 7: Manager approves enrollment
-    print("\n7️⃣ Manager Approving Enrollment...")
-    approve_response = requests.post(f"{BASE_URL}/manager/enrollments/{enrollment_id}/approve", 
+    # Step 7: Manager accepts enrollment
+    print("\n7️⃣ Manager Accepting Enrollment...")
+    accept_response = requests.post(f"{BASE_URL}/manager/enrollments/{enrollment_id}/accept", 
                                    headers=manager_headers)
     if accept_response.status_code == 200:
         print(f"✅ Enrollment accepted")
