@@ -140,7 +140,7 @@ def test_teacher_assignment_bug():
         print(enrollment_response.text)
         return False
     
-    enrollment_id = enrollment_response.json()['enrollment']['id']
+    enrollment_id = enrollment_response.json()['enrollment_id']
     print(f"✅ Student enrolled: {enrollment_id}")
     
     # Step 5: Upload student documents
