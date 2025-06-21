@@ -193,7 +193,7 @@ def test_teacher_assignment_bug():
     
     # Step 8: Check manager's enrollments (THIS IS WHERE THE BUG MIGHT BE)
     print("\n8️⃣ Checking Manager's Enrollments...")
-    enrollments_response = requests.get(f"{BASE_URL}/managers/enrollments", headers=manager_headers)
+    enrollments_response = requests.get(f"{BASE_URL}/manager/enrollments", headers=manager_headers)
     
     if enrollments_response.status_code != 200:
         print(f"❌ Failed to get enrollments: {enrollments_response.status_code}")
