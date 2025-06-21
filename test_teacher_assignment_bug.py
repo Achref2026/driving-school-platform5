@@ -90,7 +90,7 @@ def test_teacher_assignment_bug():
         "can_teach_female": True
     }
     
-    teacher_response = requests.post(f"{BASE_URL}/managers/teachers", json=teacher_data, headers=manager_headers)
+    teacher_response = requests.post(f"{BASE_URL}/teachers/add", json=teacher_data, headers=manager_headers)
     
     if teacher_response.status_code != 200:
         print(f"❌ Teacher creation failed: {teacher_response.status_code}")
