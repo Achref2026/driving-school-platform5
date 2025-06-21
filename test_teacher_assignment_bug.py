@@ -186,10 +186,10 @@ def test_teacher_assignment_bug():
     print("\n7️⃣ Manager Approving Enrollment...")
     approve_response = requests.post(f"{BASE_URL}/manager/enrollments/{enrollment_id}/approve", 
                                    headers=manager_headers)
-    if approve_response.status_code == 200:
-        print(f"✅ Enrollment approved")
+    if accept_response.status_code == 200:
+        print(f"✅ Enrollment accepted")
     else:
-        print(f"❌ Failed to approve enrollment: {approve_response.text}")
+        print(f"❌ Failed to accept enrollment: {accept_response.text}")
     
     # Step 8: Check manager's enrollments (THIS IS WHERE THE BUG MIGHT BE)
     print("\n8️⃣ Checking Manager's Enrollments...")
