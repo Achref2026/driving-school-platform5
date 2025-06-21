@@ -175,8 +175,28 @@ def test_teacher_assignment_bug():
         else:
             print(f"  ❌ Failed to upload {doc_type}: {doc_response.text}")
     
-    # Step 6: Manager accepts documents
+    # Step 6: Manager accepts documents (including profile photo from registration)
     print("\n6️⃣ Manager Accepting Documents...")
+    
+    # First, get all pending documents for this student
+    pending_docs_response = requests.get(f"{BASE_URL}/managers/pending-documents", headers=manager_headers)
+    if pending_docs_response.status_code == 200:
+        pending_data = pending_docs_response.json()
+        all_pending_docs = pending_data.get('documents', [])
+        student_docs = [doc for doc in all_pending_docs if doc.get('student_email') == student_email]
+        
+        print(f"   Found {len(student_docs)} pending documents for student")
+        
+        # Accept all student documents
+        for doc in student_docs:
+            accept_response = requests.post(f"{BASE_URL}/documents/accept/{doc['id']}", 
+                                          headers=manager_headers)
+            if accept_response.status_code == 200:
+                print(f"  ✅ Accepted {doc['document_type']} (ID: {doc['id']})")
+            else:
+                print(f"  ❌ Failed to accept {doc['document_type']}: {accept_response.text}")
+    
+    # Also accept the documents we just uploaded
     for doc_id in doc_ids:
         accept_response = requests.post(f"{BASE_URL}/documents/accept/{doc_id}", 
                                       headers=manager_headers)
