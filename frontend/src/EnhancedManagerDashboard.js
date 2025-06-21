@@ -287,8 +287,8 @@ const EnhancedManagerDashboard = ({ user, token }) => {
         return;
       }
 
-      // Get the enrollment ID from the student data
-      const enrollmentId = selectedStudentData.enrollment_id;
+      // Get the enrollment ID from the student data (enrollment object)
+      const enrollmentId = selectedStudentData.id; // Use 'id' which is the enrollment ID
       if (!enrollmentId) {
         alert('Student enrollment not found');
         return;
