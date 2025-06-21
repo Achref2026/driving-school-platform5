@@ -262,7 +262,7 @@ def test_teacher_assignment_bug():
     
     # Step 11: Verify assignment
     print("\n🔍 Verifying Teacher Assignment...")
-    final_enrollments_response = requests.get(f"{BASE_URL}/managers/enrollments", headers=manager_headers)
+    final_enrollments_response = requests.get(f"{BASE_URL}/manager/enrollments", headers=manager_headers)
     final_enrollments = final_enrollments_response.json().get('enrollments', [])
     
     assigned_enrollment = None
