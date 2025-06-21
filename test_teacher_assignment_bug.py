@@ -178,23 +178,28 @@ def test_teacher_assignment_bug():
     # Step 6: Manager accepts documents (including profile photo from registration)
     print("\n6️⃣ Manager Accepting Documents...")
     
-    # First, get all pending documents for this student
-    pending_docs_response = requests.get(f"{BASE_URL}/managers/pending-documents", headers=manager_headers)
-    if pending_docs_response.status_code == 200:
-        pending_data = pending_docs_response.json()
-        all_pending_docs = pending_data.get('documents', [])
-        student_docs = [doc for doc in all_pending_docs if doc.get('student_email') == student_email]
-        
-        print(f"   Found {len(student_docs)} pending documents for student")
-        
-        # Accept all student documents
-        for doc in student_docs:
-            accept_response = requests.post(f"{BASE_URL}/documents/accept/{doc['id']}", 
+    # Get documents for this specific enrollment
+    enrollment_docs_response = requests.get(f"{BASE_URL}/manager/enrollments/{enrollment_id}/documents", 
                                           headers=manager_headers)
-            if accept_response.status_code == 200:
-                print(f"  ✅ Accepted {doc['document_type']} (ID: {doc['id']})")
+    if enrollment_docs_response.status_code == 200:
+        docs_data = enrollment_docs_response.json()
+        all_docs = docs_data.get('documents', [])
+        
+        print(f"   Found {len(all_docs)} documents for enrollment")
+        
+        # Accept all documents
+        for doc in all_docs:
+            if doc.get('status') != 'accepted':  # Only accept if not already accepted
+                accept_response = requests.post(f"{BASE_URL}/documents/accept/{doc['id']}", 
+                                              headers=manager_headers)
+                if accept_response.status_code == 200:
+                    print(f"  ✅ Accepted {doc['document_type']} (ID: {doc['id']})")
+                else:
+                    print(f"  ❌ Failed to accept {doc['document_type']}: {accept_response.text}")
             else:
-                print(f"  ❌ Failed to accept {doc['document_type']}: {accept_response.text}")
+                print(f"  ✅ Already accepted {doc['document_type']} (ID: {doc['id']})")
+    else:
+        print(f"  ❌ Failed to get enrollment documents: {enrollment_docs_response.text}")
     
     # Also accept the documents we just uploaded
     for doc_id in doc_ids:
