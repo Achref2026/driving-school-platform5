@@ -261,7 +261,7 @@ def test_teacher_assignment_bug():
         return False
     
     teachers_data = teachers_response.json()
-    available_teachers = teachers_data.get('teachers', [])
+    available_teachers = teachers_data.get('available_teachers', [])
     
     print(f"👨‍🏫 Found {len(available_teachers)} available teachers")
     
