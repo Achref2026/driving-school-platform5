@@ -111,7 +111,8 @@ def test_teacher_assignment_bug():
         "phone": "2222222222",
         "address": "321 Student Street",
         "date_of_birth": "1995-01-01",
-        "gender": "male"
+        "gender": "male",
+        "state": "Alger"
     }
     
     files = {
