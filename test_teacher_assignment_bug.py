@@ -71,7 +71,7 @@ def test_teacher_assignment_bug():
         print(school_response.text)
         return False
     
-    school_id = school_response.json()['school']['id']
+    school_id = school_response.json()['id']
     print(f"✅ Driving school created: {school_id}")
     
     # Step 2: Create a teacher for the school
