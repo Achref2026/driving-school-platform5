@@ -100,6 +100,15 @@ def test_teacher_assignment_bug():
     teacher_id = teacher_response.json()['teacher']['id']
     print(f"✅ Teacher created: {teacher_id}")
     
+    # Approve the teacher
+    approve_teacher_response = requests.post(f"{BASE_URL}/teachers/{teacher_id}/approve", 
+                                           headers=manager_headers)
+    if approve_teacher_response.status_code == 200:
+        print(f"✅ Teacher approved")
+    else:
+        print(f"⚠️  Failed to approve teacher: {approve_teacher_response.text}")
+        # Continue anyway
+    
     # Step 3: Register a student
     print("\n3️⃣ Creating Student...")
     student_email = generate_random_email()
